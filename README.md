@@ -1,6 +1,12 @@
 # OpenAI API Quickstart - Python example app
 
-This is an example pet name generator app used in the OpenAI API [quickstart tutorial](https://beta.openai.com/docs/quickstart). It uses the [Flask](https://flask.palletsprojects.com/en/2.0.x/) web framework. Check out the tutorial or follow the instructions below to get set up.
+This is a POC on building a Product Information Kiosk  with OpenAI ChatGPT integration to answer questions about a product. It is based on the OpenAI API [quickstart tutorial](https://beta.openai.com/docs/quickstart). 
+The application uses two OpenAI APIs: 
+1. Embeddings API - to provide context to ChatGPT using document embeddings retrieval and 
+2. Completions API - to answer the questions about the product. 
+
+Sources - https://github.com/openai/openai-cookbook/blob/main/examples/Question_answering_using_embeddings.ipynb
+https://github.com/openai/openai-quickstart-python
 
 ## Setup
 
@@ -35,7 +41,10 @@ This is an example pet name generator app used in the OpenAI API [quickstart tut
 
 7. Add your [API key](https://beta.openai.com/account/api-keys) to the newly created `.env` file
 
-8. Run the app
+8. Install tiktoken
+      In your terminal, install tiktoken with pip: pip install tiktoken
+
+9. Run the app
 
    ```bash
    $ flask run
