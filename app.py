@@ -52,13 +52,25 @@ def index():
         attribute = request.form["attribute"]
         prompt=construct_prompt(attribute, document_embeddings, df)
         print("===\n", prompt)
-        response = openai.Completion.create(
-                    model="text-davinci-003",
-                    prompt=prompt,
-                    max_tokens=150,
-                    temperature=0,
+
+#Uncomment the below block to use davinci model
+#         response = openai.Completion.create(
+#                     model="text-davinci-003",
+#                     prompt=prompt,
+#                     max_tokens=150,
+#                     temperature=0,
+#                 )
+#         return redirect(url_for("index", result=response.choices[0].text))
+#davinci ends
+
+#Uncomment the below block to use gpt-3.5-turbo model which has a lesser cost
+        response = openai.ChatCompletion.create(
+                    model="gpt-3.5-turbo",
+                    messages=[{"role": "user", "content": prompt}],
+                    temperature=0
                 )
-        return redirect(url_for("index", result=response.choices[0].text))
+        return redirect(url_for("index", result=response['choices'][0]['message']['content']))
+#gpt-3.5-turbo ends
 
     result = request.args.get("result")
     return render_template("index.html", result=result)
