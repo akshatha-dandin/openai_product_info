@@ -75,6 +75,23 @@ def index():
     result = request.args.get("result")
     return render_template("index.html", result=result)
 
+@app.route('/product_description/', methods=("GET", "POST"))
+def product_description():
+    if request.method == "POST":
+        attribute = request.form["attribute"]
+        prompt="""Write a product description for the following item in 50-60 words: """+ attribute
+        print("===\n", prompt)
+
+        response = openai.Completion.create(
+                       #model="davinci:ft-personal-2023-03-30-22-31-10",
+                       model="text-davinci-003",
+                       prompt= prompt,
+                       max_tokens=100,
+                       temperature=1)
+        return redirect(url_for("product_description", result=response.choices[0].text))
+
+    result = request.args.get("result")
+    return render_template("product_description.html", result=result)
 
 # def generate_prompt(animal, attribute):
 # # Answer the question as truthfully as possible, and if you're unsure of the answer, say "Sorry, I don't know"
